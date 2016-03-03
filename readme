@@ -6,3 +6,59 @@ This is my journey to become a master data scientist:
 We will now explore the world of data...
 
 
+#========================================================================
+#20160303
+get a gpu backed deep learning model working on aws
+
+get gpu working:
+
+subscribe to bitfusion ami from marketplace         https://aws.amazon.com/marketplace/pp/B01B52CMSO
+
+Launch instance from bitfusion ami 
+
+     I used g2.2xlarge instance in northern california region - ami-34423254
+
+set up cuda config
+
+    set $CUDA_ROOT to bin folder of cuda installation
+    echo "$LD_LIBRARY_PATH" 
+
+output:  /usr/local/cuda/lib64
+
+    CUDA_ROOT=”/usr/local/cuda/bin”  #bin folder at same level as above var ^^
+ 
+Add CUDA_ROOT to path:
+ PATH="$PATH:$CUDA_ROOT"
+nvcc binary must be on path...should be in your CUDA_ROOT
+
+Configure theano to use your gpu by making your ~/.theanorc file look like this:
+
+[global]
+device = gpu
+floatX = float32
+
+test theano
+ran test by copying code at :
+http://deeplearning.net/software/theano/tutorial/using_gpu.html#using-gpu
+
+        python test_theano.py 
+==================== output ======================================
+
+Using gpu device 0: GRID K520
+[GpuElemwise{exp,no_inplace}(<CudaNdarrayType(float32, vector)>), HostFromGpu(GpuElemwise{exp,no_inplace}.0)]
+Looping 1000 times took 0.780457 seconds
+Result is [ 1.23178029  1.61879349  1.52278066 ...,  2.20771813  2.29967761
+1.62323296]
+Used the gpu
+
+pip install keras
+
+git clone https://github.com/BoulderDataScience/data-sci-bowl-2016.git
+
+python model.py 
+========= output =======================
+Using Theano backend.
+Using gpu device 0: GRID K520
+#========================================================================
+
+
