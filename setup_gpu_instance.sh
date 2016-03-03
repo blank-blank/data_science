@@ -18,6 +18,11 @@ pip install paramiko PyYAML Jinja2 httplib2 six
 
 pip install ansible
 
+pip install --upgrade pip
+
+sudo apt-get install libatlas-base-dev gfortran
+
+pip install scipy
 
 
 
